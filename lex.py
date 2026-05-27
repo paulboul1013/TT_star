@@ -33,7 +33,30 @@ class Lexer:
 
     # return the next token
     def get_token(self):
-        pass
+        #check first character of token
+        if self.cur_char=='+':
+            pass
+            
+        elif self.cur_char=='-':
+            pass
+
+        elif self.cur_char=='*':
+            pass
+
+        elif self.cur_char=='/':
+            pass
+
+        elif self.cur_char=='\n':
+            pass
+
+        elif self.cur_char=='\0':
+            pass
+
+        else:
+            #unkown token
+            pass
+
+        self.next_char()
 
 
 
