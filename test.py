@@ -2,7 +2,7 @@ from lex import *
 
 
 def main():
-    source = "# +-*/= \n #+-*/= #this is comment "
+    source = "\"testing\""
     lexer = Lexer(source)
 
     token=lexer.get_token()

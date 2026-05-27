@@ -95,6 +95,22 @@ class Lexer:
             else:
                 self.abort("Expected !=,but only got !"+self.peek())
 
+        elif self.cur_char=='\"':
+            #get characters between " and "
+            self.next_char()
+            start_pos=self.cur_pos
+            
+            while self.cur_char!='\"':
+                
+                if self.cur_char=='\r' or self.cur_char=='\n' or self.cur_char=='\t' or self.cur_char=='\\' or self.cur_char=='%':
+                    self.abort("Illegal character in string.")
+                
+                self.next_char()
+
+            token_text=self.source[start_pos:self.cur_pos] # get the string
+            token=Token(token_text,Token_Type.STRING)
+                
+
         elif self.cur_char=='\n':
             token = Token(self.cur_char,Token_Type.NEWLINE)
 
