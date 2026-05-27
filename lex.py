@@ -84,6 +84,14 @@ class Lexer:
             else:
                 token=Token(self.cur_char,Token_Type.LT)
 
+        elif self.cur_char=='!':
+            if self.peek()=='=':
+                last_char=self.cur_char
+                self.next_char()
+                token=Token(last_char+self.cur_char,Token_Type.NOTEQ)
+            else:
+                self.abort("Expected !=,but only got !"+self.peek())
+
         elif self.cur_char=='\n':
             token = Token(self.cur_char,Token_Type.NEWLINE)
 
