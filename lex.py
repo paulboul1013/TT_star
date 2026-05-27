@@ -110,6 +110,26 @@ class Lexer:
             token_text=self.source[start_pos:self.cur_pos] # get the string
             token=Token(token_text,Token_Type.STRING)
                 
+        elif self.cur_char.isdigit():
+            #leading character is a digit
+            #get all consecutive digits and decimal if there is one
+            start_pos=self.cur_pos
+            while self.peek().isdigit():
+                self.next_char()
+
+            if self.peek()=='.': # decimal
+                self.next_char()
+
+                # must have at least one digit after decimal
+                if not self.peek().isdigit():
+                    #error
+                    self.abort("Illegal character in number.")
+
+                while self.peek().isdigit():
+                    self.next_char()
+
+            token_text = self.source[start_pos:self.cur_pos+1] # get the substring
+            token = Token(token_text,Token_Type.NUMBER)
 
         elif self.cur_char=='\n':
             token = Token(self.cur_char,Token_Type.NEWLINE)
