@@ -54,13 +54,14 @@ class Lexer:
             token = Token(self.cur_char,Token_Type.NEWLINE)
 
         elif self.cur_char=='\0':
-            token = Token(self.cur_char,Token_Type.EOF)
-            
+            token = Token('',Token_Type.EOF)
+
         else:
             #unkown token
             pass
 
         self.next_char()
+        return token
 
 class Token:
     def __init__(self,token_text,token_kind):
