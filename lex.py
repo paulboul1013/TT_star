@@ -1,4 +1,5 @@
 import enum
+import sys
 
 class Lexer:
     def __init__(self,source):
@@ -33,6 +34,10 @@ class Lexer:
     def skip_comments(self):
         pass
 
+    #invalid token found, print error message and exit
+    def abort(self,message):
+        sys.exit("Lexing error. "+message)
+
     # return the next token
     def get_token(self):
         #check first character of token
@@ -58,7 +63,7 @@ class Lexer:
 
         else:
             #unkown token
-            pass
+            self.abort("Unknown token: "+self.cur_char)
 
         self.next_char()
         return token
