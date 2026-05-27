@@ -131,6 +131,19 @@ class Lexer:
             token_text = self.source[start_pos:self.cur_pos+1] # get the substring
             token = Token(token_text,Token_Type.NUMBER)
 
+        elif self.cur_char.isalpha():
+            # 
+            start_pos=self.cur_pos
+            while self.peek().isalnum():
+                self.next_char()
+
+            token_text = self.source[start_pos:self.cur_pos+1]
+            keyword = Token.check_if_keyword(token_text)
+            if keyword==None:
+                token = Token(token_text, Token_Type.IDENT)
+            else:
+                token = Token(token_text, keyword)
+
         elif self.cur_char=='\n':
             token = Token(self.cur_char,Token_Type.NEWLINE)
 
@@ -144,10 +157,20 @@ class Lexer:
         self.next_char()
         return token
 
+
+
 class Token:
     def __init__(self,token_text,token_kind):
         self.text=token_text
         self.kind=token_kind
+
+    @staticmethod
+    def check_if_keyword(token_text):
+        for kind in Token_Type:
+            if kind.name == token_text and kind.value >= 100 and kind.value < 200:
+                return kind
+                
+        return None
 
 class Token_Type(enum.Enum):
     EOF=-1
