@@ -33,7 +33,9 @@ class Lexer:
 
     # skip comments 
     def skip_comments(self):
-        pass
+        if self.cur_char=='#':
+            while self.cur_char!='\n':
+                self.next_char()
 
     #invalid token found, print error message and exit
     def abort(self,message):
@@ -44,6 +46,7 @@ class Lexer:
         #check first character of token
         token=None
         self.skip_whitespace()
+        self.skip_comments()
 
         if self.cur_char=='+':
             token = Token(self.cur_char,Token_Type.PLUS)
