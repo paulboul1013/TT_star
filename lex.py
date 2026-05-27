@@ -66,6 +66,15 @@ class Lexer:
             else:
                 token = Token(self.cur_char,Token_Type.EQ)
 
+        elif self.cur_char=='>':
+            #check whether is > or >=
+            if self.peek()=='=':
+                last_char=self.cur_char
+                self.next_char()
+                token=Token(last_char+self.cur_char,Token_Type.GTEQ)
+            else:
+                token=Token(self.cur_char,Token_Type.GT)
+
         elif self.cur_char=='\n':
             token = Token(self.cur_char,Token_Type.NEWLINE)
 
