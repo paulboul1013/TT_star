@@ -28,7 +28,8 @@ class Lexer:
 
     # skip whitespace except newlines, use to indicate the end of the statement
     def skip_whitespace(self):
-        pass
+        while self.cur_char==' ' or self.cur_char=='\t' or self.cur_char=='\r':
+            self.next_char()
 
     # skip comments 
     def skip_comments(self):
@@ -42,6 +43,7 @@ class Lexer:
     def get_token(self):
         #check first character of token
         token=None
+        self.skip_whitespace()
 
         if self.cur_char=='+':
             token = Token(self.cur_char,Token_Type.PLUS)
