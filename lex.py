@@ -36,24 +36,26 @@ class Lexer:
     # return the next token
     def get_token(self):
         #check first character of token
+        token=None
+
         if self.cur_char=='+':
-            pass
+            token = Token(self.cur_char,Token_Type.PLUS)
             
         elif self.cur_char=='-':
-            pass
+            token = Token(self.cur_char,Token_Type.MINUS)
 
         elif self.cur_char=='*':
-            pass
+            token = Token(self.cur_char,Token_Type.ASTERISK)
 
         elif self.cur_char=='/':
-            pass
+            token = Token(self.cur_char,Token_Type.SLASH)
 
         elif self.cur_char=='\n':
-            pass
+            token = Token(self.cur_char,Token_Type.NEWLINE)
 
         elif self.cur_char=='\0':
-            pass
-
+            token = Token(self.cur_char,Token_Type.EOF)
+            
         else:
             #unkown token
             pass
