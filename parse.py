@@ -8,11 +8,11 @@ class Parser:
 
     # return true if the current token matches
     def check_token(self,token):
-        pass
+        return kind==self.cur_token.kind
 
     # return true if the next token matches
     def check_peek(self,kind):
-        pass
+        return kind==self.peek_token.kind
 
     # try to match current token. if not，print error message. advances the current token
     def match(self,kind):
