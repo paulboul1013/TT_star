@@ -72,6 +72,21 @@ class Parser:
 
                 self.match(Token_Type.ENDIF)
 
+            # "WHILE" comparsion "REPEAT" {statement} "ENDWHILE"
+            elif self.check_token(Token_Type.WHILE):
+                print("STATEMENT-WHILE")
+                self.next_token()
+                self.comparsion()
+
+                self.match(Token_Type.REPEAT)
+                self.nl()
+
+                # zero or more statements in the loop body
+                while not self.check_token(Token_Type.ENDWHILE):
+                    self.statement()
+
+                self.match(Token_Type.ENDWHILE)
+
             else:
                 # expression
                 self.expression()
