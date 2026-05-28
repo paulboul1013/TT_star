@@ -4,7 +4,12 @@ from lex import *
 # keeps track of current token and check if the code matches the grammar
 class Parser:
     def __init__(self,lexer):
-        pass
+        self.lexer=lexer
+        
+        self.cur_token=None
+        self.peek_token=None
+        self.next_token()
+        self.next_token() # call twice to fill cur_token and peek_token
 
     # return true if the current token matches
     def check_token(self,token):
