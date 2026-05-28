@@ -40,6 +40,10 @@ class Parser:
     def program(self):
         print("PROGRAM")
         
+        # if program first token is newline,need to skip
+        while self.check_token(Token_Type.NEWLINE):
+            self.next_token()
+        
         # Parse all the statements in the program
         while not self.check_token(Token_Type.EOF):
             self.statement()
