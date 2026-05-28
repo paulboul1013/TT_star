@@ -16,11 +16,16 @@ class Parser:
 
     # try to match current token. if not，print error message. advances the current token
     def match(self,kind):
-        pass
+        if not self.check_token(kind):
+            self.abort("Expected "+kind.name+",but got"+self.cur_token.kind.name)
+            
+        self.next_token()
 
     # advance teh current token
     def next_token(self):
-        pass
+        self.cur_token=self.peek_token
+        self.peek_token=self.lexer.get_token()
+        # lexer handle EOF
 
     def abort(self,message):
         sys.exit("Parsing Error: "+message)
