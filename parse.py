@@ -12,7 +12,7 @@ class Parser:
         self.next_token() # call twice to fill cur_token and peek_token
 
     # return true if the current token matches
-    def check_token(self,token):
+    def check_token(self,kind):
         return kind==self.cur_token.kind
 
     # return true if the next token matches
@@ -62,3 +62,15 @@ class Parser:
 
         # NEWLINE
         self.nl()
+
+    # nl ::= '\n'+ (at least one newline)
+    def nl(self):
+        print("NEWLINE")
+
+        # require at least one newline
+        self.match(Token_Type.NEWLINE)
+
+        # allow extras newlines
+        while self.check_token(Token_Type.NEWLINE):
+            self.next_token()
+
