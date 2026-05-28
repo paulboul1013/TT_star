@@ -93,7 +93,25 @@ class Parser:
                 self.next_token()
                 self.match(Token_Type.IDENT)
                 
-            
+            # "GOTO" ident
+            elif self.check_token(Token_Type.GOTO):
+                print("STATEMENT-GOTO")
+                self.next_token()
+                self.match(Token_Type.IDENT)
+
+            # "LET" ident "=" expression
+            elif self.check_token(Token_Type.LET):
+                print("STATEMENT-LET")
+                self.next_token()
+                self.match(Token_Type.IDENT)
+                self.match(Token_Type.EQ)
+                self.expression()
+
+            # "INPUT" ident
+            elif self.check_token(Token_Type.INPUT):
+                print("STATEMENT-INPUT")
+                self.next_token()
+                self.match(Token_Type.IDENT)
 
             else:
                 # expression
