@@ -159,3 +159,15 @@ class Parser:
     def is_comparison_operator(self):
         return self.checkToken(TokenType.GT) or self.checkToken(TokenType.GTEQ) or self.checkToken(TokenType.LT) or self.checkToken(TokenType.LTEQ) or self.checkToken(TokenType.EQEQ) or self.checkToken(TokenType.NOTEQ)
 
+    # expression ::= term {("-"|"+") term}
+    def expression(self):
+        print("EXPRESSION")
+
+        self.term()
+
+        # 0 or more +/- and term
+        while self.check_token(Token_Type.PLUS) or self.check_token(Token_Type.MINUS):
+            self.next_token()
+            self.term()
+
+        
