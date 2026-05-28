@@ -87,6 +87,14 @@ class Parser:
 
                 self.match(Token_Type.ENDWHILE)
 
+            # "LABEL" ident
+            elif self.check_token(Token_Type.LABEL):
+                print("STATEMENT-LABEL")
+                self.next_token()
+                self.match(Token_Type.IDENT)
+                
+            
+
             else:
                 # expression
                 self.expression()
