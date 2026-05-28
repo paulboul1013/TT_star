@@ -63,11 +63,11 @@ class Parser:
             else:
                 self.expression()
             
-        # "IF" comparsion "THEN" {statement} "ENDIF"
+        # "IF" comparison "THEN" {statement} "ENDIF"
         elif self.check_token(Token_Type.IF):
             print("STATEMENT-IF")
             self.next_token()
-            self.comparsion()
+            self.comparison()
 
             self.match(Token_Type.THEN)
             self.nl()
@@ -78,11 +78,11 @@ class Parser:
 
             self.match(Token_Type.ENDIF)
 
-        # "WHILE" comparsion "REPEAT" {statement} "ENDWHILE"
+        # "WHILE" comparison "REPEAT" {statement} "ENDWHILE"
         elif self.check_token(Token_Type.WHILE):
             print("STATEMENT-WHILE")
             self.next_token()
-            self.comparsion()
+            self.comparison()
 
             self.match(Token_Type.REPEAT)
             self.nl()
@@ -136,4 +136,26 @@ class Parser:
         # allow extras newlines
         while self.check_token(Token_Type.NEWLINE):
             self.next_token()
+
+
+    # comparison ::= expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression)+ 
+    def comparison(self):
+        print("COMPARSON")
+
+        self.expression()
+        #at least one compairson operator and another expression
+        if self.is_comparison_operator():
+            self.next_token()
+            self.expression()
+        else:
+            self.abort("Expected comparison operator at: "+self.cur_token.text)
+
+        # more comparsion operators
+        while self.is_comparison_operator():
+            self.next_token()
+            self.expression()
+
+    # return true if the current token is a comparison operator
+    def is_comparison_operator(self):
+        return self.checkToken(TokenType.GT) or self.checkToken(TokenType.GTEQ) or self.checkToken(TokenType.LT) or self.checkToken(TokenType.LTEQ) or self.checkToken(TokenType.EQEQ) or self.checkToken(TokenType.NOTEQ)
 
