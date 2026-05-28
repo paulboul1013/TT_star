@@ -56,6 +56,22 @@ class Parser:
             if self.check_token(Token_Type.STRING):
                 # string
                 self.next_token()
+            
+            # "IF" comparsion "THEN" {statement} "ENDIF"
+            elif self.check_token(Token_Type.IF):
+                print("STATEMENT-IF")
+                self.next_token()
+                self.comparsion()
+
+                self.match(Token_Type.THEN)
+                self.nl()
+
+                # zero or more statements in the if block
+                while not self.check_token(Token_Type.ENDIF):
+                    self.statement()
+
+                self.match(Token_Type.ENDIF)
+
             else:
                 # expression
                 self.expression()
