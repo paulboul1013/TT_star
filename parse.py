@@ -56,66 +56,68 @@ class Parser:
             if self.check_token(Token_Type.STRING):
                 # string
                 self.next_token()
-            
-            # "IF" comparsion "THEN" {statement} "ENDIF"
-            elif self.check_token(Token_Type.IF):
-                print("STATEMENT-IF")
-                self.next_token()
-                self.comparsion()
-
-                self.match(Token_Type.THEN)
-                self.nl()
-
-                # zero or more statements in the if block
-                while not self.check_token(Token_Type.ENDIF):
-                    self.statement()
-
-                self.match(Token_Type.ENDIF)
-
-            # "WHILE" comparsion "REPEAT" {statement} "ENDWHILE"
-            elif self.check_token(Token_Type.WHILE):
-                print("STATEMENT-WHILE")
-                self.next_token()
-                self.comparsion()
-
-                self.match(Token_Type.REPEAT)
-                self.nl()
-
-                # zero or more statements in the loop body
-                while not self.check_token(Token_Type.ENDWHILE):
-                    self.statement()
-
-                self.match(Token_Type.ENDWHILE)
-
-            # "LABEL" ident
-            elif self.check_token(Token_Type.LABEL):
-                print("STATEMENT-LABEL")
-                self.next_token()
-                self.match(Token_Type.IDENT)
-                
-            # "GOTO" ident
-            elif self.check_token(Token_Type.GOTO):
-                print("STATEMENT-GOTO")
-                self.next_token()
-                self.match(Token_Type.IDENT)
-
-            # "LET" ident "=" expression
-            elif self.check_token(Token_Type.LET):
-                print("STATEMENT-LET")
-                self.next_token()
-                self.match(Token_Type.IDENT)
-                self.match(Token_Type.EQ)
-                self.expression()
-
-            # "INPUT" ident
-            elif self.check_token(Token_Type.INPUT):
-                print("STATEMENT-INPUT")
-                self.next_token()
-                self.match(Token_Type.IDENT)
-
             else:
-                # expression
                 self.expression()
+            
+        # "IF" comparsion "THEN" {statement} "ENDIF"
+        elif self.check_token(Token_Type.IF):
+            print("STATEMENT-IF")
+            self.next_token()
+            self.comparsion()
+
+            self.match(Token_Type.THEN)
+            self.nl()
+
+            # zero or more statements in the if block
+            while not self.check_token(Token_Type.ENDIF):
+                self.statement()
+
+            self.match(Token_Type.ENDIF)
+
+        # "WHILE" comparsion "REPEAT" {statement} "ENDWHILE"
+        elif self.check_token(Token_Type.WHILE):
+            print("STATEMENT-WHILE")
+            self.next_token()
+            self.comparsion()
+
+            self.match(Token_Type.REPEAT)
+            self.nl()
+
+            # zero or more statements in the loop body
+            while not self.check_token(Token_Type.ENDWHILE):
+                self.statement()
+
+            self.match(Token_Type.ENDWHILE)
+
+        # "LABEL" ident
+        elif self.check_token(Token_Type.LABEL):
+            print("STATEMENT-LABEL")
+            self.next_token()
+            self.match(Token_Type.IDENT)
+                
+        # "GOTO" ident
+        elif self.check_token(Token_Type.GOTO):
+            print("STATEMENT-GOTO")
+            self.next_token()
+            self.match(Token_Type.IDENT)
+
+        # "LET" ident "=" expression
+        elif self.check_token(Token_Type.LET):
+            print("STATEMENT-LET")
+            self.next_token()
+            self.match(Token_Type.IDENT)
+            self.match(Token_Type.EQ)
+            self.expression()
+
+        # "INPUT" ident
+        elif self.check_token(Token_Type.INPUT):
+            print("STATEMENT-INPUT")
+            self.next_token()
+            self.match(Token_Type.IDENT)
+
+        # not a valid statement
+        else:
+            self.abort("Invalid statement at "+self.cur_token.text+"("+self.cur_token.kind.name+")")
 
         # NEWLINE
         self.nl()
