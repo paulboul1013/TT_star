@@ -193,4 +193,16 @@ class Parser:
         self.primary()
 
     
+    # primary ::= number | ident
+    def primary(self):
+        print("PRIMARY ("+self.cur_token.text+")")
+
+        if self.check_token(Token_Type.NUMBER):
+            self.next_token()
+        elif self.check_token(Token_Type.IDENT):
+            self.next_token()
+        else:
+            # Error
+            self.abort("Unexpected token at "+self.cur_token.text)
+        
         
