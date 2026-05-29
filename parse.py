@@ -102,31 +102,28 @@ class Parser:
 
             self.match(Token_Type.ENDWHILE)
 
-        # "LABEL" ident
-        elif self.check_token(Token_Type.LABEL):
-            print("STATEMENT-LABEL")
-            self.next_token()
-            self.match(Token_Type.IDENT)
-                
-        # "GOTO" ident
-        elif self.check_token(Token_Type.GOTO):
-            print("STATEMENT-GOTO")
-            self.next_token()
-            self.match(Token_Type.IDENT)
-
-        # "LET" ident "=" expression
-        elif self.check_token(Token_Type.LET):
-            print("STATEMENT-LET")
-            self.next_token()
-            self.match(Token_Type.IDENT)
-            self.match(Token_Type.EQ)
-            self.expression()
-
         # "INPUT" ident
         elif self.check_token(Token_Type.INPUT):
-            print("STATEMENT-INPUT")
             self.next_token()
+
+            # if variable doesn't already exist, declare it
+            if self.cur_token.text not in self.symbols:
+                self.symbols.add(self.cur_token.text)
+
             self.match(Token_Type.IDENT)
+
+        # "LET" ident = expression
+        elif self.check_token(Token_Type.LET):
+            self.next_token()
+
+            # check if ident exists in symbol table. If not , then declare
+            if self.cur_token.text not in self.symbols:
+                self.symbols.add(self.cur_token.text)
+
+            self.match(Token_Type.IDENT)
+            self.match(Token_Type.EQ)
+
+            self.expression()
 
         # "LABEL" ident
         elif self.check_token(Token_Type.LABEL):
@@ -146,29 +143,6 @@ class Parser:
             print("STATEMENT-GOTO")
             self.next_token()
             self.labels_gotoed.add(self.cur_token.text)
-            self.match(Token_Type.IDENT)
-
-        # "LET" ident = expression
-        elif self.check_token(Token_Type.LET):
-            self.next_token()
-
-            # check if ident exists in symbol table. If not , then declare
-            if self.cur_token.text not in self.symbols:
-                self.symbols.add(self.cur_token.text)
-
-            self.match(Token_Type.IDENT)
-            self.match(Token_Type.EQ)
-
-            self.expression()
-
-        # "INPUT" ident
-        elif self.check_token(Token_Type.INPUT):
-            self.next_token()
-
-            # if variable doesn't already exist, declare it
-            if self.cur_token.text not in self.symbols:
-                self.symbols.add(self.cur_token.text)
-
             self.match(Token_Type.IDENT)
 
         # not a valid statement
