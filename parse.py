@@ -5,6 +5,10 @@ from lex import *
 class Parser:
     def __init__(self,lexer):
         self.lexer=lexer
+
+        self.symbols = set() # variables declared 
+        self.labels_declared = set() # labels declared 
+        self.labels_gotoed = set() # labels gotoed
         
         self.cur_token=None
         self.peek_token=None
