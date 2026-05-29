@@ -123,6 +123,19 @@ class Parser:
             self.next_token()
             self.match(Token_Type.IDENT)
 
+        # "LABEL" ident
+        elif self.check_token(Token_Type.LABEL):
+            print("STATEMENT-LABEL")
+            self.next_token()
+
+            # make sure this label doesn't already exist
+            if self.cur_token.text in self.labels_declared:
+                self.abort("Label already exists: "+self.cur_token.text)
+
+            self.labels_declared.add(self.cur_token.text)
+        
+            self.match(Token_Type.IDENT)
+
         # not a valid statement
         else:
             self.abort("Invalid statement at "+self.cur_token.text+"("+self.cur_token.kind.name+")")
@@ -208,5 +221,3 @@ class Parser:
         else:
             # Error
             self.abort("Unexpected token at "+self.cur_token.text)
-        
-        
