@@ -161,6 +161,16 @@ class Parser:
 
             self.expression()
 
+        # "INPUT" ident
+        elif self.check_token(Token_Type.INPUT):
+            self.next_token()
+
+            # if variable doesn't already exist, declare it
+            if self.cur_token.text not in self.symbols:
+                self.symbols.add(self.cur_token.text)
+
+            self.match(Token_Type.IDENT)
+
         # not a valid statement
         else:
             self.abort("Invalid statement at "+self.cur_token.text+"("+self.cur_token.kind.name+")")
