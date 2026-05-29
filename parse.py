@@ -170,4 +170,17 @@ class Parser:
             self.next_token()
             self.term()
 
+
+    # term ::= unary {("/" | "*") unary}
+    def term(self):
+        print("TERM")
+        
+        self.unary()
+
+        # 0 or more '*' or '/ and unary
+        while self.check_token(Token_Type.ASTERISK) or self.check_token(Token_Type.SLASH):
+            self.next_token()
+            self.unary()
+
+        
         
