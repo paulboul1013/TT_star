@@ -136,6 +136,14 @@ class Parser:
         
             self.match(Token_Type.IDENT)
 
+        # "GOTO" ident
+        elif self.check_token(Token_Type.GOTO):
+            print("STATEMENT-GOTO")
+            self.next_token()
+            self.labels_gotoed.add(self.cur_token.text)
+            self.match(Token_Type.IDENT)
+            
+
         # not a valid statement
         else:
             self.abort("Invalid statement at "+self.cur_token.text+"("+self.cur_token.kind.name+")")
