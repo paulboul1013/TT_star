@@ -157,7 +157,7 @@ class Parser:
 
     # return true if the current token is a comparison operator
     def is_comparison_operator(self):
-        return self.checkToken(TokenType.GT) or self.checkToken(TokenType.GTEQ) or self.checkToken(TokenType.LT) or self.checkToken(TokenType.LTEQ) or self.checkToken(TokenType.EQEQ) or self.checkToken(TokenType.NOTEQ)
+        return self.check_token(Token_Type.GT) or self.check_token(Token_Type.GTEQ) or self.check_token(Token_Type.LT) or self.check_token(Token_Type.LTEQ) or self.check_token(Token_Type.EQEQ) or self.check_token(Token_Type.NOTEQ)
 
     # expression ::= term {("-"|"+") term}
     def expression(self):
