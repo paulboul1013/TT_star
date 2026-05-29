@@ -52,6 +52,11 @@ class Parser:
         while not self.check_token(Token_Type.EOF):
             self.statement()
 
+        # check that all labels referenced in a GOTO is declared
+        for label in self.labels_gotoed:
+            if label not in self.labels_declared:
+                self.abort("Undeclared label:"+label)
+
     # statement ::= "PRINT" (expression | string) nl
     def statement(self):
         #check first token  what kind of statement it's
@@ -142,7 +147,7 @@ class Parser:
             self.next_token()
             self.labels_gotoed.add(self.cur_token.text)
             self.match(Token_Type.IDENT)
-            
+
 
         # not a valid statement
         else:
