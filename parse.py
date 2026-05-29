@@ -252,6 +252,9 @@ class Parser:
         if self.check_token(Token_Type.NUMBER):
             self.next_token()
         elif self.check_token(Token_Type.IDENT):
+            # ensure variable already exists
+            if self.cur_token.text not in self.symbols:
+                self.abort("Referencing variable before assignment: "+self.cur_token.text)
             self.next_token()
         else:
             # Error
