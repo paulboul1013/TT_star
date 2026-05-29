@@ -148,6 +148,18 @@ class Parser:
             self.labels_gotoed.add(self.cur_token.text)
             self.match(Token_Type.IDENT)
 
+        # "LET" ident = expression
+        elif self.check_token(Token_Type.LET):
+            self.next_token()
+
+            # check if ident exists in symbol table. If not , then declare
+            if self.cur_token.text not in self.symbols:
+                self.symbols.add(self.cur_token.text)
+
+            self.match(Token_Type.IDENT)
+            self.match(Token_Type.EQ)
+
+            self.expression()
 
         # not a valid statement
         else:
