@@ -201,6 +201,7 @@ class Parser:
         self.expression()
         #at least one compairson operator and another expression
         if self.is_comparison_operator():
+            self.emitter.emit(self.cur_token.text)
             self.next_token()
             self.expression()
         else:
@@ -208,6 +209,7 @@ class Parser:
 
         # more comparsion operators
         while self.is_comparison_operator():
+            self.emitter.emit(self.cur_token.text)
             self.next_token()
             self.expression()
 
