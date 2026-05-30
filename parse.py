@@ -259,11 +259,14 @@ class Parser:
         # print("PRIMARY ("+self.cur_token.text+")")
 
         if self.check_token(Token_Type.NUMBER):
+            self.emitter.emit(self.cur_token.text)
             self.next_token()
         elif self.check_token(Token_Type.IDENT):
             # ensure variable already exists
             if self.cur_token.text not in self.symbols:
                 self.abort("Referencing variable before assignment: "+self.cur_token.text)
+            
+            self.emitter.emit(self.cur_token.text)
             self.next_token()
         else:
             # Error
