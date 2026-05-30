@@ -126,6 +126,14 @@ class Parser:
             # if variable doesn't already exist, declare it
             if self.cur_token.text not in self.symbols:
                 self.symbols.add(self.cur_token.text)
+                self.emitter.header_line("float "+self.cur_token.text+';')  
+
+            # emit scanf and check valid input，if not valid input，set the variable to 0 and clear the input
+            self.emitter.emit_line("if(0==scanf(\"%"+"f\", &"+self.cur_token.text+")) {")
+            self.emitter.emit_line(self.cur_token.text+" = 0;")
+            self.emitter.emit("scanf(\"%")
+            self.emitter.emit_line("*s\");")
+            self.emitter.emit_line("}")
 
             self.match(Token_Type.IDENT)
 
