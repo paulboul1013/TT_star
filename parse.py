@@ -238,6 +238,7 @@ class Parser:
 
         # 0 or more '*' or '/ and unary
         while self.check_token(Token_Type.ASTERISK) or self.check_token(Token_Type.SLASH):
+            self.emitter.emit(self.cur_token.text)
             self.next_token()
             self.unary()
 
