@@ -225,6 +225,7 @@ class Parser:
 
         # 0 or more +/- and term
         while self.check_token(Token_Type.PLUS) or self.check_token(Token_Type.MINUS):
+            self.emitter.emit(self.cur_token.text)
             self.next_token()
             self.term()
 
