@@ -43,7 +43,7 @@ class Parser:
 
     # program ::= {statement}
     def program(self):
-        print("PROGRAM")
+        # print("PROGRAM")
         
         # if program first token is newline,need to skip
         while self.check_token(Token_Type.NEWLINE):
@@ -64,7 +64,7 @@ class Parser:
 
         # "PRINT" (expression | string)
         if self.check_token(Token_Type.PRINT):
-            print("STATEMENT-PRINT")
+            # print("STATEMENT-PRINT")
             self.next_token()
 
             if self.check_token(Token_Type.STRING):
@@ -75,7 +75,7 @@ class Parser:
             
         # "IF" comparison "THEN" {statement} "ENDIF"
         elif self.check_token(Token_Type.IF):
-            print("STATEMENT-IF")
+            # print("STATEMENT-IF")
             self.next_token()
             self.comparison()
 
@@ -90,7 +90,7 @@ class Parser:
 
         # "WHILE" comparison "REPEAT" {statement} "ENDWHILE"
         elif self.check_token(Token_Type.WHILE):
-            print("STATEMENT-WHILE")
+            # print("STATEMENT-WHILE")
             self.next_token()
             self.comparison()
 
@@ -128,7 +128,7 @@ class Parser:
 
         # "LABEL" ident
         elif self.check_token(Token_Type.LABEL):
-            print("STATEMENT-LABEL")
+            # print("STATEMENT-LABEL")
             self.next_token()
 
             # make sure this label doesn't already exist
@@ -141,7 +141,7 @@ class Parser:
 
         # "GOTO" ident
         elif self.check_token(Token_Type.GOTO):
-            print("STATEMENT-GOTO")
+            # print("STATEMENT-GOTO")
             self.next_token()
             self.labels_gotoed.add(self.cur_token.text)
             self.match(Token_Type.IDENT)
@@ -155,7 +155,7 @@ class Parser:
 
     # nl ::= '\n'+ (at least one newline)
     def nl(self):
-        print("NEWLINE")
+        # print("NEWLINE")
 
         # require at least one newline
         self.match(Token_Type.NEWLINE)
@@ -167,7 +167,7 @@ class Parser:
 
     # comparison ::= expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression)+ 
     def comparison(self):
-        print("COMPARSON")
+        # print("COMPARSON")
 
         self.expression()
         #at least one compairson operator and another expression
@@ -188,7 +188,7 @@ class Parser:
 
     # expression ::= term {("-"|"+") term}
     def expression(self):
-        print("EXPRESSION")
+        # print("EXPRESSION")
 
         self.term()
 
@@ -200,7 +200,7 @@ class Parser:
 
     # term ::= unary {("/" | "*") unary}
     def term(self):
-        print("TERM")
+        # print("TERM")
         
         self.unary()
 
@@ -211,7 +211,7 @@ class Parser:
 
     # unary ::= ["+" | "-"] primary
     def unary(self):
-        print("UNARY")
+        # print("UNARY")
 
         # optional unary +/-
         if self.check_token(Token_Type.PLUS) or self.check_token(Token_Type.MINUS):
@@ -222,7 +222,7 @@ class Parser:
     
     # primary ::= number | ident
     def primary(self):
-        print("PRIMARY ("+self.cur_token.text+")")
+        # print("PRIMARY ("+self.cur_token.text+")")
 
         if self.check_token(Token_Type.NUMBER):
             self.next_token()
