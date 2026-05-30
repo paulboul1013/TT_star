@@ -248,6 +248,7 @@ class Parser:
 
         # optional unary +/-
         if self.check_token(Token_Type.PLUS) or self.check_token(Token_Type.MINUS):
+            self.emitter.emit(self.cur_token.text)
             self.next_token()
 
         self.primary()
