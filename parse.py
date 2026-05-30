@@ -74,10 +74,14 @@ class Parser:
             self.next_token()
 
             if self.check_token(Token_Type.STRING):
-                # string
+                # just string，print it
+                self.emitter.emit_line("printf(\""+self.cur_token.text+"\\n\");")
                 self.next_token()
             else:
+                # expect an expression and print the result as a float
+                self.emitter.emit("printf(\"%"+".2f\\n\",(float)(")
                 self.expression()
+                self.emitter.emit_line("));")
             
         # "IF" comparison "THEN" {statement} "ENDIF"
         elif self.check_token(Token_Type.IF):
