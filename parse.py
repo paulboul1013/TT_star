@@ -161,6 +161,7 @@ class Parser:
             # print("STATEMENT-GOTO")
             self.next_token()
             self.labels_gotoed.add(self.cur_token.text)
+            self.emitter.emit_line("goto "+self.cur_token.text+";")
             self.match(Token_Type.IDENT)
 
         # not a valid statement
