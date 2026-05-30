@@ -44,6 +44,8 @@ class Parser:
     # program ::= {statement}
     def program(self):
         # print("PROGRAM")
+        self.emitter.header_line("#include <stdio.h>")
+        self.emitter.header_line("int main(void){")
         
         # if program first token is newline,need to skip
         while self.check_token(Token_Type.NEWLINE):
@@ -52,6 +54,10 @@ class Parser:
         # Parse all the statements in the program
         while not self.check_token(Token_Type.EOF):
             self.statement()
+
+        # wrap main function
+        self.emitter.emit_line("return 0;")
+        self.emitter.emit_line("}")
 
         # check that all labels referenced in a GOTO is declared
         for label in self.labels_gotoed:
