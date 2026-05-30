@@ -153,6 +153,7 @@ class Parser:
 
             self.labels_declared.add(self.cur_token.text)
         
+            self.emitter.emit_line(self.cur_token.text+":")
             self.match(Token_Type.IDENT)
 
         # "GOTO" ident
